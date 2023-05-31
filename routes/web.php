@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\TMDB\TMDBClient;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,11 +16,8 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    $response = Http::acceptJson()->get('https://api.themoviedb.org/3/movie/latest', [
-        'api_key' => '147227c8a08db71af336e5c33ac616bd',
-    ]);
-    dd($response->json());
+Route::get('/', function (TMDBClient $client) {
+    dd($client->upcoming());
     return Inertia::render('Welcome', [
         'user' => 'Mark'
     ]);
