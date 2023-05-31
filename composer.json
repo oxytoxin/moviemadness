@@ -10,7 +10,11 @@
         "inertiajs/inertia-laravel": "^0.6.9",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "livewire/livewire": "^2.12",
+        "spatie/enum": "^3.13",
+        "spatie/laravel-data": "^3.5",
+        "spatie/laravel-typescript-transformer": "^2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
