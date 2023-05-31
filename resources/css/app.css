@@ -8,11 +8,10 @@
     display: none !important;
 }
 
-.splide__pagination,
-.splide__arrow {
-    display: none !important;
-}
-
 .gradient {
     background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 1) 95%);
+}
+
+.splide__pagination {
+    left: auto !important;
 }

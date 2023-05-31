@@ -1,5 +1,5 @@
-<div>
-    <nav class="py-4 flex justify-between">
+<div x-data x-cloak>
+    <nav class="py-4 px-16 absolute inset-x-0 z-10 flex justify-between">
         <div>
             <p class="text-2xl">MovieMadness</p>
         </div>
@@ -28,46 +28,23 @@
             </div>
         </div>
     </nav>
-    <div class="w-full absolute -z-10 inset-0 bottom-auto" x-cloak x-init="new Splide('.splide').mount()" x-data="{ current: 0 }">
-        <section class="splide h-full" aria-label="Splide Basic HTML Example">
-            <div class="splide__track h-full">
-                <ul class="splide__list ">
-                    @foreach ($upcoming_movies as $upcoming_movie)
-                        <li class="splide__slide cursor-grab">
-                            <div class="w-full h-[40rem] relative">
-                                <div class="gradient absolute inset-0 z-10 pointer-events-none"></div>
-                                <img class="w-full select-none h-full object-cover object-center" src="{{ $upcoming_movie['backdrop_path'] }}" alt="{{ $upcoming_movie['title'] }} Backdrop">
-                                <div class="absolute bottom-4 left-4 z-10 flex items-stretch gap-4">
-                                    <img class="" src="{{ $upcoming_movie['poster_path'] }}" alt="{{ $upcoming_movie['title'] }} Poster">
-                                    <div class="space-y-4 flex flex-col">
-                                        <h4 class="text-4xl text-shadow font-bold">{{ $upcoming_movie['title'] }}</h4>
-                                        <div class="flex gap-4 text-sm">
-                                            @if ($upcoming_movie['runtime'])
-                                                <p>{{ $this->formatRunTime($upcoming_movie['runtime']) }}</p>
-                                            @endif
-                                            @if ($upcoming_movie['vote_count'])
-                                                <p>{{ $upcoming_movie['vote_average'] }}</p>
-                                                <p>{{ $upcoming_movie['vote_count'] }}</p>
-                                            @endif
-                                        </div>
-                                        <p class="prose text-white">{{ $upcoming_movie['overview'] }}</p>
-                                        <div class="flex-1"></div>
-                                        <div class="flex gap-4">
-                                            <button>Watch Trailer</button>
-                                            <a class="inline-flex items-center border px-2 py-1 gap-2 hover:bg-white duration-200 hover:text-slate-700 rounded-lg" href="#">
-                                                <i class="ri-bookmark-line"></i>
-                                                <span class="text-sm">Add to Watchlist</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </section>
-        @dump($upcoming_movies)
-
+    <div wire:ignore>
+        <x-homepage.hero-carousel :items="$discover_movies" />
     </div>
+
+    <div class="px-16 space-y-8 mt-16">
+        <div wire:ignore>
+            <x-homepage.movie-posters-scroller id="popular" title="POPULAR" :items="$movies['popular']" />
+        </div>
+        <div wire:ignore>
+            <x-homepage.movie-posters-scroller id="upcoming" title="UPCOMING" :items="$movies['upcoming']" />
+        </div>
+        <div wire:ignore>
+            <x-homepage.movie-posters-scroller id="now_playing" title="NOW PLAYING" :items="$movies['now_playing']" />
+        </div>
+        <div wire:ignore>
+            <x-homepage.movie-posters-scroller id="top_rated" title="TOP RATED" :items="$movies['top_rated']" />
+        </div>
+    </div>
+    <div class="my-80"></div>
 </div>

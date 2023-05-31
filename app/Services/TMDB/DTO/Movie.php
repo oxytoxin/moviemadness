@@ -41,6 +41,8 @@ class Movie extends Data
         public bool $video,
         public float|int $vote_average,
         public int $vote_count,
+        public ?array $images,
+        public ?array $videos,
     ) {
     }
 }

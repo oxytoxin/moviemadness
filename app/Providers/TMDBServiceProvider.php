@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\TMDB\TMDBClient;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
 class TMDBServiceProvider extends ServiceProvider
@@ -26,6 +27,8 @@ class TMDBServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Http::macro('tmdb', function () {
+            return Http::acceptJson()->baseUrl(config('tmdb.base_url'));
+        });
     }
 }
