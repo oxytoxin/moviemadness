@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Livewire\Homepage;
+use App\Services\TMDB\DTO\Movie;
+use App\Services\TMDB\DTO\MovieCollection;
+use App\Services\TMDB\Enums\Images\BackdropSize;
 use App\Services\TMDB\TMDBClient;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -16,13 +20,4 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function (TMDBClient $client) {
-    dd($client->upcoming());
-    return Inertia::render('Welcome', [
-        'user' => 'Mark'
-    ]);
-});
-
-Route::inertia('/about', 'About', [
-    'user' => 'John'
-]);
+Route::get('/', Homepage::class);
