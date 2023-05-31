@@ -15,6 +15,7 @@ class TMDBServiceProvider extends ServiceProvider
         $this->app->singleton(TMDBClient::class, function ($app) {
             return new TMDBClient(
                 baseUrl: config('tmdb.base_url'),
+                imageBaseUrl: config('tmdb.image_base_url'),
                 apiKey: config('tmdb.api_key')
             );
         });
