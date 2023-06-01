@@ -1,5 +1,4 @@
 <div class="md:px-16 px-4 mt-8" x-data>
-    @dump($movie['similar'])
     <div class="mt-12 flex justify-between items-end">
         <div>
             <div class="flex items-center gap-4">
@@ -21,17 +20,21 @@
         </div>
     </div>
     <div class="mt-4" x-data="{ player: null }">
-        @if (app()->environment('production'))
-            <div x-init="player = YouTubePlayer('player', {
-                playerVars: {
-                    modestbranding: true,
-                }
-            });
-            player.loadVideoById('{{ collect(collect($movie['videos'])->first())->first()['key'] }}');">
-                <div class="">
-                    <div class="w-full h-[70vh]" id="player"></div>
+        @if (!app()->environment('production'))
+            @if (count($movie['videos']))
+                <div x-init="player = YouTubePlayer('player', {
+                    playerVars: {
+                        modestbranding: true,
+                    }
+                });
+                player.loadVideoById('{{ collect(collect($movie['videos'])->first())->first()['key'] }}');">
+                    <div class="">
+                        <div class="w-full h-[70vh]" id="player"></div>
+                    </div>
                 </div>
-            </div>
+            @else
+                <img class="w-full h-[40rem] select-none object-cover object-center" src="{{ $movie['backdrop_path'] }}" alt="{{ $movie['title'] }} Backdrop">
+            @endif
         @else
             <div class="bg-red-200">
                 <div class="w-full h-[70vh]" id="player"></div>
