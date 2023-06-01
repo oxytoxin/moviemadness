@@ -9,9 +9,12 @@
 </head>
 
 <body class="bg-black font-rubik text-white w-full">
+    <x-navigation-bar />
     @isset($slot)
         {{ $slot }}
     @endisset
+    <x-footer />
+
     @livewireScripts
 </body>
 

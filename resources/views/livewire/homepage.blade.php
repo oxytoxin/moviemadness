@@ -1,23 +1,16 @@
 <div x-data x-cloak>
-    <x-navigation-bar />
-
     <div wire:ignore>
         <x-homepage.hero-carousel :items="$discover_movies" />
     </div>
     <div class="md:px-16 px-4">
         <div class="space-y-8 mt-16">
-            <div wire:ignore>
-                <x-homepage.movie-posters-scroller id="popular" title="POPULAR" :items="$movies['popular']" />
-            </div>
-            <div wire:ignore>
-                <x-homepage.movie-posters-scroller id="upcoming" title="UPCOMING" :items="$movies['upcoming']" />
-            </div>
-            <div wire:ignore>
-                <x-homepage.movie-posters-scroller id="now_playing" title="NOW PLAYING" :items="$movies['now_playing']" />
-            </div>
-            <div wire:ignore>
-                <x-homepage.movie-posters-scroller id="top_rated" title="TOP RATED" :items="$movies['top_rated']" />
-            </div>
+            @foreach ($movies as $key => $movie_collection)
+                <div wire:ignore>
+                    <x-homepage.movie-posters-scroller id="{{ $key }}" :link_for_more="route('movies.by-type', ['type' => $key])" :title="str($key)
+                        ->replace('_', ' ')
+                        ->upper()" :items="$movie_collection" />
+                </div>
+            @endforeach
         </div>
         <div class="mt-20">
             <h2 class="text-center text-2xl font-bold">BROWSE BY GENRE</h2>
@@ -51,19 +44,5 @@
                 </div>
             </div>
         </div>
-        <div class="flex mt-20 md:mt-40 flex-col md:flex-row items-center gap-4 justify-between text-sm">
-            <ul class="flex gap-16">
-                <a href="#">
-                    <li>Privacy Policy</li>
-                </a>
-                <a href="#">
-                    <li>Terms of Service</li>
-                </a>
-            </ul>
-            <div>
-                <p>&copy; 2023</p>
-            </div>
-        </div>
     </div>
-    <div class="mt-4"></div>
 </div>

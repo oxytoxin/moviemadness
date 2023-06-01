@@ -1,13 +1,10 @@
 <?php
 
 use App\Http\Livewire\Homepage;
-use App\Services\TMDB\DTO\Movie;
-use App\Services\TMDB\DTO\MovieCollection;
-use App\Services\TMDB\Enums\Images\BackdropSize;
-use App\Services\TMDB\TMDBClient;
-use Illuminate\Support\Facades\Http;
+use App\Http\Livewire\Movies\DiscoverMovies;
+use App\Http\Livewire\Movies\MovieDetails;
+use App\Http\Livewire\Movies\MoviesByType;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +17,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', Homepage::class);
+Route::get('/', Homepage::class)->name('home');
+Route::prefix('movies')->name('movies.')->group(function () {
+    Route::get('discover', DiscoverMovies::class)->name('discover');
+    Route::get('type/{type}', MoviesByType::class)->name('by-type');
+    Route::get('{movie_id}', MovieDetails::class)->name('details')->where('movie_id', '[0-9]+');
+});
