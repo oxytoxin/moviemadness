@@ -9,13 +9,14 @@
 /* Firefox */
 * {
     scrollbar-width: thin;
+    scrollbar-width: thin;
     scrollbar-color: #888888 #DFE9EB;
 }
 
 /* Chrome, Edge and Safari */
 *::-webkit-scrollbar {
     width: 6px;
-    width: 6px;
+    height: 6px;
 }
 
 *::-webkit-scrollbar-track {
