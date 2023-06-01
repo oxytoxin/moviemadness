@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="mt-4" x-data="{ player: null }">
-        @if (!app()->environment('production'))
+        @if (app()->environment('production'))
             @if (count($movie['videos']))
                 <div x-init="player = YouTubePlayer('player', {
                     playerVars: {
