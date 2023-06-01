@@ -12,6 +12,7 @@ class Homepage extends Component
     public $discover_movies = [];
     public $movies = [];
     public $genres = [];
+    public $home = true;
 
     public function mount(TMDBClient $client)
     {
@@ -34,16 +35,5 @@ class Homepage extends Component
     public function render()
     {
         return view('livewire.homepage');
-    }
-
-    public function formatRunTime($minutes)
-    {
-        $hours = floor($minutes / 60);
-        $mins = $minutes % 60;
-
-        $hoursString = str_pad($hours, 2, '0', STR_PAD_LEFT);
-        $minsString = str_pad($mins, 2, '0', STR_PAD_LEFT);
-
-        return $hoursString . 'h' . $minsString . 'm';
     }
 }
