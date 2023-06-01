@@ -21,9 +21,14 @@ class TMDBClient
     {
     }
 
-    public function getImageUrl(BackdropSize|LogoSize|PosterSize|ProfileSize|StillSize $size, $path): string
+    public static function getImageUrl(BackdropSize|LogoSize|PosterSize|ProfileSize|StillSize $size, $path): string
     {
-        return "{$this->imageBaseUrl}/{$size->value}{$path}";
+        return config('tmdb.image_base_url') . "{$size->value}{$path}";
+    }
+
+    public static function getYoutubeVideoThumbnail($key): string
+    {
+        return "https://img.youtube.com/vi/$key/hqdefault.jpg";
     }
 
     public function getGenres()
