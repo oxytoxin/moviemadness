@@ -14,10 +14,11 @@
                 @foreach ($items as $item)
                     <li class="splide__slide cursor-grab">
                         <div class="w-full h-[40rem] relative">
-                            <div class="gradient absolute inset-0 z-10 pointer-events-none"></div>
+                            <div class="bg-black md:hidden bg-opacity-70 absolute inset-0 z-10 pointer-events-none"></div>
+                            <div class="gradient md:block hidden absolute inset-0 z-10 pointer-events-none"></div>
                             <img class="w-full select-none h-full object-cover object-center" src="{{ $item['backdrop_path'] }}" alt="{{ $item['title'] }} Backdrop">
                             <div class="absolute bottom-8 left-4 z-10 flex items-stretch gap-4">
-                                <img class="" src="{{ $item['poster_path'] }}" alt="{{ $item['title'] }} Poster">
+                                <img class="hidden md:block" src="{{ $item['poster_path'] }}" alt="{{ $item['title'] }} Poster">
                                 <div class="space-y-4 flex flex-col">
                                     <h4 class="text-4xl text-shadow font-bold">{{ $item['title'] }}</h4>
                                     <div class="flex gap-4 text-sm">
