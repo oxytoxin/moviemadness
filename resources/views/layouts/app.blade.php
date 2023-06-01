@@ -8,7 +8,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-black font-rubik text-white">
+<body class="bg-black font-rubik text-white w-full">
     @isset($slot)
         {{ $slot }}
     @endisset

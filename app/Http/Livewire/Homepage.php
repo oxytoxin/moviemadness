@@ -11,6 +11,7 @@ class Homepage extends Component
 {
     public $discover_movies = [];
     public $movies = [];
+    public $genres = [];
 
     public function mount(TMDBClient $client)
     {
@@ -27,6 +28,7 @@ class Homepage extends Component
                 return $result;
             })->toArray();
         }
+        $this->genres = $client->getGenres()->toArray();
     }
 
     public function render()

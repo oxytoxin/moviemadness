@@ -1,50 +1,69 @@
 <div x-data x-cloak>
-    <nav class="py-4 px-16 absolute inset-x-0 z-10 flex justify-between">
-        <div>
-            <p class="text-2xl">MovieMadness</p>
-        </div>
-        <ul class="flex gap-8 items-center">
-            <a href="#">
-                <li>Home</li>
-            </a>
-            <a href="#">
-                <li>Discover</li>
-            </a>
-            <a href="#">
-                <li>Movie Release</li>
-            </a>
-            <a href="#">
-                <li>Forum</li>
-            </a>
-            <a href="#">
-                <li>About</li>
-            </a>
-        </ul>
-        <div class="text-xl flex gap-4 items-center">
-            <i class="ri-search-line"></i>
-            <i class="ri-notification-2-line"></i>
-            <div class="rounded-full w-8 h-8 border-2 border-white flex items-center justify-center">
-                <i class="ri-user-line"></i>
-            </div>
-        </div>
-    </nav>
+    <x-navigation-bar />
+
     <div wire:ignore>
         <x-homepage.hero-carousel :items="$discover_movies" />
     </div>
-
-    <div class="px-16 space-y-8 mt-16">
-        <div wire:ignore>
-            <x-homepage.movie-posters-scroller id="popular" title="POPULAR" :items="$movies['popular']" />
+    <div class="md:px-16 px-4">
+        <div class="space-y-8 mt-16">
+            <div wire:ignore>
+                <x-homepage.movie-posters-scroller id="popular" title="POPULAR" :items="$movies['popular']" />
+            </div>
+            <div wire:ignore>
+                <x-homepage.movie-posters-scroller id="upcoming" title="UPCOMING" :items="$movies['upcoming']" />
+            </div>
+            <div wire:ignore>
+                <x-homepage.movie-posters-scroller id="now_playing" title="NOW PLAYING" :items="$movies['now_playing']" />
+            </div>
+            <div wire:ignore>
+                <x-homepage.movie-posters-scroller id="top_rated" title="TOP RATED" :items="$movies['top_rated']" />
+            </div>
         </div>
-        <div wire:ignore>
-            <x-homepage.movie-posters-scroller id="upcoming" title="UPCOMING" :items="$movies['upcoming']" />
+        <div class="mt-20">
+            <h2 class="text-center text-2xl font-bold">BROWSE BY GENRE</h2>
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-8 md:px-20 mt-8">
+                @foreach ($genres as $genre)
+                    <a href="#">
+                        <p class="text-center hover:ring-2 ring-white duration-500 p-2 md:p-4">
+                            {{ $genre['name'] }}
+                        </p>
+                    </a>
+                @endforeach
+            </div>
         </div>
-        <div wire:ignore>
-            <x-homepage.movie-posters-scroller id="now_playing" title="NOW PLAYING" :items="$movies['now_playing']" />
+        <div class="md:mt-40 mt-20 md:px-32 flex flex-col md:flex-row items-stretch w-full" id="about">
+            <div class="flex-1">
+                <p class="prose text-white text-xl">
+                    Welcome to MovieMadness, <br>
+                    your premier destination for exploring movies, watching trailers, and creating your personalized movie watchlists.
+                    Immerse yourself in the world of cinema and embark on an extraordinary journey of movie magic.
+                </p>
+            </div>
+            <div class="flex-1 flex flex-col justify-between items-end">
+                <div class="hidden md:block">
+                    <x-navigation-links />
+                </div>
+                <div class="flex text-2xl mt-20 gap-4">
+                    <i class="ri-instagram-fill"></i>
+                    <i class="ri-facebook-box-fill"></i>
+                    <i class="ri-twitter-fill"></i>
+                    <i class="ri-google-fill"></i>
+                </div>
+            </div>
         </div>
-        <div wire:ignore>
-            <x-homepage.movie-posters-scroller id="top_rated" title="TOP RATED" :items="$movies['top_rated']" />
+        <div class="flex mt-20 md:mt-40 flex-col md:flex-row items-center gap-4 justify-between text-sm">
+            <ul class="flex gap-16">
+                <a href="#">
+                    <li>Privacy Policy</li>
+                </a>
+                <a href="#">
+                    <li>Terms of Service</li>
+                </a>
+            </ul>
+            <div>
+                <p>&copy; 2023</p>
+            </div>
         </div>
     </div>
-    <div class="my-80"></div>
+    <div class="mt-4"></div>
 </div>
