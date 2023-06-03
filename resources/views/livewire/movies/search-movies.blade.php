@@ -1,29 +1,14 @@
 <div class="md:px-16 px-4">
-    <h1 class="text-center text-4xl my-16">DISCOVER MOVIES</h1>
-    <div class="grid grid-cols-2 md:grid-cols-6 gap-2 md:px-20 mt-8">
-        @foreach ($genres as $genre)
-            <button @class([
-                'text-center flex gap-2 items-center justify-center hover:bg-gray-400 hover:text-slate-700 w-full border-2 border-white duration-500 p-2 md:p-1',
-                'bg-green-600 text-white' => in_array($genre['id'], $include_genres),
-            ]) wire:click="toggleGenre('{{ $genre['id'] }}')">
-                <i class="ri-loader-4-line animate-spin" wire:loading.delay wire:target="toggleGenre('{{ $genre['id'] }}')"></i><span>{{ $genre['name'] }}</span>
-            </button>
-        @endforeach
-    </div>
+    <h1 class="text-center text-4xl my-16">SEARCH MOVIES</h1>
     <div class="md:px-20">
-        <div class="mt-8">
+        <div class="mt-16">
             <div>
-                <div>
-                    <div class="flex gap-4">
-                        <p>Minimum Rating: </p>
-                        <span>{{ $min_rating }}</span>
-                    </div>
-                    <input class="w-full" type="range" wire:model.lazy="min_rating" step="0.1" min="0" max="10">
-                </div>
-            </div>
-            <div class="mt-16">
-                <div>
-                    <div class="min-h-[10rem] text-center" wire:init="discover">
+                <form class="relative" wire:submit.prevent="search">
+                    <i class="ri-search-line text-black text-3xl top-1/2 -translate-y-1/2 left-3 absolute"></i>
+                    <input class="w-full text-2xl text-black pl-16" type="text" placeholder="Enter keywords..." wire:model.defer="search" required>
+                </form>
+                <div class="min-h-[10rem] text-center">
+                    @if ($search)
                         <div wire:loading.delay.remove>
                             @if ($movies)
                                 <div class="posters-container">
@@ -44,14 +29,13 @@
                                     @endif
                                 </div>
                             @else
-                                <p class="text-center p-16">No results found.</p>
+                                <p class="text-center p-16">No results found for '{{ $search }}'.</p>
                             @endif
                         </div>
                         <div wire:loading.delay>
                             <i class="ri-loader-4-line animate-spin inline-flex text-9xl"></i>
                         </div>
-                    </div>
-
+                    @endif
                 </div>
             </div>
         </div>

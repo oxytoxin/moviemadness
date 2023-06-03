@@ -5,7 +5,7 @@
     <a class="border-b border-white px-4" href="{{ route('movies.discover') }}">
         <li>Discover</li>
     </a>
-    <a class="border-b border-white px-4" href="#about">
+    <a class="border-b border-white px-4" href="{{ route('home') }}#about">
         <li>About</li>
     </a>
 </ul>

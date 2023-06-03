@@ -9,6 +9,9 @@ export default {
     extend: {
       fontFamily: {
         rubik: ["Rubik", "sans-serif"]
+      },
+      gridTemplateColumns: {
+        ram: 'repeat(auto-fit, minmax(150px, 1fr))'
       }
     },
   },

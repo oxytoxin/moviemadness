@@ -1,24 +1,45 @@
 <?php
 
-namespace App\Services\TMDB;
+namespace App\Services\TMDB\Traits;
 
 use App\Services\TMDB\DTO\Movie;
 use App\Services\TMDB\DTO\MovieCollection;
+use App\Services\TMDB\TMDBClient;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use PDO;
 
 trait FetchesMovies
 {
-    public function discover_movies(array $query = [])
+    public function search_movies(array $query = [])
     {
         $query = array_merge($query, [
             'api_key' => $this->apiKey,
         ]);
 
-        return Cache::remember('discover', 3600, function () use ($query) {
+        $response = Http::tmdb()
+            ->get("/search/movie", $query);
+
+        if (!$response->successful()) {
+            return $response->toException();
+        }
+
+        $data = $response->json();
+
+        return MovieCollection::from($data);
+    }
+
+
+    public function discover_movies(array $query = [], $key = null)
+    {
+        $query = array_merge($query, [
+            'api_key' => $this->apiKey,
+        ]);
+
+        $key ??= now()->timestamp;
+
+        return Cache::remember($key, 3600, function () use ($query) {
             $response = Http::tmdb()
                 ->get("/discover/movie", $query);
             if (!$response->successful()) {
@@ -41,34 +62,6 @@ trait FetchesMovies
                 $data['results'][$key]['trailer'] = collect($responses[$key]->json()['videos']['results'])->where('site', 'YouTube')->where('type', 'Trailer')->where('official', true)->first();
             }
             return MovieCollection::from($data);
-        });
-    }
-
-    public function popular(array $query = [])
-    {
-        return Cache::remember('popular', 3600, function () use ($query) {
-            return $this->getMovies('popular', $query);
-        });
-    }
-
-    public function upcoming(array $query = [])
-    {
-        return Cache::remember('upcoming', 3600, function () use ($query) {
-            return $this->getMovies('upcoming', $query);
-        });
-    }
-
-    public function now_playing(array $query = [])
-    {
-        return Cache::remember('now_playing', 3600, function () use ($query) {
-            return $this->getMovies('now_playing', $query);
-        });
-    }
-
-    public function top_rated(array $query = [])
-    {
-        return Cache::remember('top_rated', 3600, function () use ($query) {
-            return $this->getMovies('top_rated', $query);
         });
     }
 
@@ -95,12 +88,12 @@ trait FetchesMovies
                     return $v;
                 })
                 ->toArray();
-
+            $data['similar'] = $data['similar']['results'];
             return Movie::from($data);
         });
     }
 
-    private function getMovies(string $type, array $query)
+    public function getMovies(string $type, array $query)
     {
         $query = array_merge($query, [
             'api_key' => $this->apiKey,
@@ -112,7 +105,6 @@ trait FetchesMovies
         if (!$response->successful()) {
             return $response->toException();
         }
-
         return MovieCollection::from($response->json());
     }
 

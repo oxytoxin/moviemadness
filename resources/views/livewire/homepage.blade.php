@@ -16,7 +16,7 @@
             <h2 class="text-center text-2xl font-bold">BROWSE BY GENRE</h2>
             <div class="grid grid-cols-2 md:grid-cols-6 gap-8 md:px-20 mt-8">
                 @foreach ($genres as $genre)
-                    <a href="#">
+                    <a href="{{ route('movies.discover', ['genre' => $genre['id']]) }}">
                         <p class="text-center hover:ring-2 ring-white duration-500 p-2 md:p-4">
                             {{ $genre['name'] }}
                         </p>

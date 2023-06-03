@@ -4,6 +4,7 @@ use App\Http\Livewire\Homepage;
 use App\Http\Livewire\Movies\DiscoverMovies;
 use App\Http\Livewire\Movies\MovieDetails;
 use App\Http\Livewire\Movies\MoviesByType;
+use App\Http\Livewire\Movies\SearchMovies;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Homepage::class)->name('home');
 Route::prefix('movies')->name('movies.')->group(function () {
+    Route::get('search', SearchMovies::class)->name('search');
     Route::get('discover', DiscoverMovies::class)->name('discover');
     Route::get('type/{type}', MoviesByType::class)->name('by-type');
     Route::get('{movie_id}', MovieDetails::class)->name('details')->where('movie_id', '[0-9]+');

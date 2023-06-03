@@ -50,7 +50,8 @@ class Movie extends Data
         public ?array $credits,
         public ?array $trailer,
         public ?array $reviews,
-        public ?array $similar,
+        #[DataCollectionOf(Movie::class)]
+        public ?DataCollection $similar,
     ) {
     }
 }

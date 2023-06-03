@@ -6,39 +6,24 @@ import YouTubePlayer from 'youtube-player';
 import '@splidejs/splide/css';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
+import collapse from '@alpinejs/collapse'
 
 window.Splide = Splide;
 window.YouTubePlayer = YouTubePlayer
-window.Alpine = Alpine
 window.tippy = tippy
+
+Alpine.plugin(collapse)
+window.Alpine = Alpine
+
+window.setProgressValue = function setProgressValue(el, value, maxValue) {
+    const radius = parseInt(el.getAttribute('r'));
+    const circumference = 2 * Math.PI * radius;
+    const progressPercentage = (value / maxValue) * 100;
+    const progressOffset = circumference - (progressPercentage / 100) * circumference;
+    el.style.strokeDasharray = `${circumference}px`;
+    el.style.strokeDashoffset = `${progressOffset}px`;
+}
 
 Alpine.start()
 
-function lazyLoadImages(selector) {
-    const images = document.querySelectorAll(selector);
-
-    const options = {
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver(function (entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const image = entry.target;
-                const src = image.getAttribute('data-src');
-
-                if (src) {
-                    image.setAttribute('src', src);
-                    image.removeAttribute('data-src');
-                    observer.unobserve(image);
-                }
-            }
-        });
-    }, options);
-
-    images.forEach(image => {
-        observer.observe(image);
-    });
-}
 

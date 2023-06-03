@@ -16,18 +16,10 @@ class Homepage extends Component
 
     public function mount(TMDBClient $client)
     {
-        $this->discover_movies = $client->discover_movies()->results->map(function ($result) use ($client) {
-            $result->backdrop_path = $client->getImageUrl(BackdropSize::w1280, $result->backdrop_path);
-            $result->poster_path = $client->getImageUrl(PosterSize::w185, $result->poster_path);
-            return $result;
-        })->toArray();
+        $this->discover_movies = $client->transformImages($client->discover_movies(key: 'homepage')->results);
         ['popular' => $this->movies['popular'], 'upcoming' => $this->movies['upcoming'], 'now_playing' => $this->movies['now_playing'], 'top_rated' => $this->movies['top_rated']] = $client->getAllMovies();
         foreach ($this->movies as $key => $movie) {
-            $this->movies[$key] = $movie->results->map(function ($result) use ($client) {
-                $result->backdrop_path = $client->getImageUrl(BackdropSize::w1280, $result->backdrop_path);
-                $result->poster_path = $client->getImageUrl(PosterSize::w185, $result->poster_path);
-                return $result;
-            })->toArray();
+            $this->movies[$key] = $client->transformImages($movie->results);
         }
         $this->genres = $client->getGenres()->toArray();
     }

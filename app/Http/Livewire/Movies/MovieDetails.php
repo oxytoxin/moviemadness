@@ -14,9 +14,10 @@ class MovieDetails extends Component
 
     public function mount($movie_id, TMDBClient $client)
     {
-        $this->movie = $client->getMovie($movie_id, [
+        $data = $client->getMovie($movie_id, [
             'append_to_response' => 'images,videos,credits,reviews,keywords,similar'
-        ])->toArray();
+        ]);
+        $this->movie = $data->toArray();
         $this->movie['videos'] = collect($this->movie['videos'])
             ->groupBy('type')
             ->sortKeysDesc()
@@ -25,20 +26,16 @@ class MovieDetails extends Component
         $this->movie['poster_path'] = TMDBClient::getImageUrl(PosterSize::w185, $this->movie['poster_path']);
         $this->movie['credits']['cast'] = collect($this->movie['credits']['cast'])->take(10)
             ->map(function ($c) {
-                $c['profile_path'] = TMDBClient::getImageUrl(ProfileSize::w185, $c['profile_path']);
+                $c['profile_path'] = $c['profile_path'] ?  TMDBClient::getImageUrl(ProfileSize::w185, $c['profile_path']) : 'https://www.pngitem.com/pimgs/m/264-2647677_avatar-icon-human-user-avatar-svg-hd-png.png';
                 return $c;
             });
         $this->movie['credits']['crew'] = collect($this->movie['credits']['crew'])
             ->filter(fn ($c) => in_array($c['job'], ['Writer', 'Director']))
             ->map(function ($c) {
-                $c['profile_path'] = TMDBClient::getImageUrl(ProfileSize::w185, $c['profile_path']);
+                $c['profile_path'] = $c['profile_path'] ?  TMDBClient::getImageUrl(ProfileSize::w185, $c['profile_path']) : 'https://www.pngitem.com/pimgs/m/264-2647677_avatar-icon-human-user-avatar-svg-hd-png.png';
                 return $c;
             });
-        $this->movie['similar']['results'] = collect($this->movie['similar']['results'])->map(function ($m) {
-            $m['backdrop_path'] = TMDBClient::getImageUrl(BackdropSize::w1280, $m['backdrop_path']);
-            $m['poster_path'] = TMDBClient::getImageUrl(PosterSize::w185, $m['poster_path']);
-            return $m;
-        })->toArray();
+        $this->movie['similar'] = $client->transformImages($data->similar);
     }
 
     public function render()

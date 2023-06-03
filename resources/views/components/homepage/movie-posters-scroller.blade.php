@@ -16,6 +16,10 @@
                     perPage: 2,
                     pagination: false,
                 },
+                900: {
+                    perPage: 4,
+                    pagination: false,
+                },
             }" :id="$id">
             @foreach ($items as $item)
                 <x-movies.poster :item="$item" />

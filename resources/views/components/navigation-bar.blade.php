@@ -7,9 +7,9 @@
     </div>
     <x-navigation-links />
     <div class="text-xl flex gap-4 items-center">
-        <button>
+        <a href="{{ route('movies.search') }}">
             <i class="ri-search-line"></i>
-        </button>
+        </a>
         <button>
             <i class="ri-notification-2-line"></i>
         </button>

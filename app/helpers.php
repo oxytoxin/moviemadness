@@ -1,7 +1,7 @@
 <?php
 
 if (!function_exists('xformatted_runtime')) {
-    function oxy_get_formatted_runtime(int|float $minutes): string
+    function xformatted_runtime(int|float $minutes): string
     {
         $hours = floor($minutes / 60);
         $mins = $minutes % 60;

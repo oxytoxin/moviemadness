@@ -7,32 +7,27 @@ use App\Services\TMDB\Traits\PaginatesMovieResults;
 use Illuminate\Http\Response;
 use Livewire\Component;
 
-class MoviesByType extends Component
+class SearchMovies extends Component
 {
     use PaginatesMovieResults;
 
-    public $type;
+    public $search = '';
     public $movies = [];
-    public $loaded = false;
 
     protected $queryString = [
         "current_page" => ['except' => 1],
+        "search" => ['except' => ''],
     ];
-
-    public function mount($type)
-    {
-        $this->type = $type;
-    }
-
 
     public function render(TMDBClient $client)
     {
         $movies = [];
         $query['page'] = $this->current_page;
-        if ($this->loaded) {
+        if ($this->search) {
+            $query['query'] = $this->search;
             try {
                 $movies = retry(3, function () use ($client, $query) {
-                    $data = $client->getMovies($this->type, $query);
+                    $data = $client->search_movies($query);
                     $this->current_page = $data->page;
                     $this->total_pages = $data->total_pages;
                     $this->total_results = $data->total_results;
@@ -43,11 +38,12 @@ class MoviesByType extends Component
             }
         }
         $this->movies = $movies;
-        return view('livewire.movies.movies-by-type');
+
+        return view('livewire.movies.search-movies');
     }
 
-    public function load()
+    public function search()
     {
-        $this->loaded = true;
+        $this->current_page = 1;
     }
 }
