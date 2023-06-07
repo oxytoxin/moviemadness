@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GithubWebhookController;
 use App\Http\Livewire\Homepage;
 use App\Http\Livewire\Movies\DiscoverMovies;
 use App\Http\Livewire\Movies\MovieDetails;
@@ -25,3 +26,6 @@ Route::prefix('movies')->name('movies.')->group(function () {
     Route::get('type/{type}', MoviesByType::class)->name('by-type');
     Route::get('{movie_id}', MovieDetails::class)->name('details')->where('movie_id', '[0-9]+');
 });
+
+
+Route::get('github-webhook', [GithubWebhookController::class, 'pull']);
