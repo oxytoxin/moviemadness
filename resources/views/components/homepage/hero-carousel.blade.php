@@ -41,10 +41,12 @@
                             <p class="prose text-white">{{ $item['overview'] }}</p>
                             <div class="flex-1"></div>
                             <div class="flex gap-4">
-                                <button class="inline-flex items-center px-2 py-1 gap-1 bg-green-700 hover:bg-green-500 duration-200 rounded-lg">
-                                    <i class="ri-play-circle-line"></i>
-                                    <p class="text-xs md:text-sm" @click="player?.loadVideoById('{{ $item['trailer']['key'] }}'); showTrailer = true">Watch Trailer</p>
-                                </button>
+                                @isset($item['trailer']['key'])
+                                    <button class="inline-flex items-center px-2 py-1 gap-1 bg-green-700 hover:bg-green-500 duration-200 rounded-lg">
+                                        <i class="ri-play-circle-line"></i>
+                                        <p class="text-xs md:text-sm" @click="player?.loadVideoById('{{ $item['trailer']['key'] }}'); showTrailer = true">Watch Trailer</p>
+                                    </button>
+                                @endisset
                                 <a class="inline-flex items-center border border-amber-700 px-2 py-1 gap-1 hover:bg-amber-500 bg-amber-600 duration-200 text-slate-800 hover:text-black rounded-lg" href="{{ route('movies.details', [
                                     'movie_id' => $item['id'],
                                 ]) }}">
