@@ -10,6 +10,7 @@ class GithubWebhookController extends Controller
 {
     public function pull()
     {
+        // test
         exec('php artisan down');
     }
 }
