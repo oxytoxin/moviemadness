@@ -11,8 +11,13 @@ class GithubWebhookController extends Controller
     public function pull()
     {
         try {
-            exec('git pull');
 
+            exec('php artisan down');
+            exec('git pull');
+            exec('pnpm install');
+            exec('pnpm build');
+            exec('composer install --no-dev --optimize-autoloader --no-interaction');
+            exec('php artisan up');
             return response('Pull from repository successful.', 200);
         } catch (\Throwable $th) {
             info('Unable to pull from repository.');
