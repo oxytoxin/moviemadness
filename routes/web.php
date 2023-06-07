@@ -28,4 +28,4 @@ Route::prefix('movies')->name('movies.')->group(function () {
 });
 
 
-Route::get('github-webhook', [GithubWebhookController::class, 'pull']);
+Route::post('github-webhook', [GithubWebhookController::class, 'pull']);
