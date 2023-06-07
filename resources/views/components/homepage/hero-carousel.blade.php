@@ -3,7 +3,7 @@
 ])
 
 <div class="w-full relative" x-data="{ showTrailer: false, player: null }">
-    Pulled
+    Pulled Again
     <div class="fixed grid place-items-center inset-0 bg-gray-900 bg-opacity-70 z-30" x-cloak x-transition.opacity x-show="showTrailer" x-init="player = YouTubePlayer('trailer', {
         playerVars: {
             modestbranding: true,
