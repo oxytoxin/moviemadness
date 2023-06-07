@@ -11,14 +11,20 @@
             <i class="ri-search-line"></i>
         </a>
         @auth
-            <button>
-                <i class="ri-notification-2-line"></i>
-            </button>
-            <button>
-                <div class="rounded-full w-8 h-8 border-2 border-white flex items-center justify-center">
-                    <i class="ri-user-line"></i>
+            <a class="text-sm border px-2 bg-amber-600 py-1" href="{{ route('user.watchlist') }}">My List</a>
+            <div class="relative" x-cloak x-data="{ show: false }">
+                <button @click="show = !show">
+                    <div class="rounded-full w-8 h-8 border-2 border-white flex items-center justify-center">
+                        <i class="ri-user-line"></i>
+                    </div>
+                </button>
+                <div class="bg-white text-right py-2 text-sm rounded text-black w-32 absolute right-0 top-12" x-show="show" x-transition @click.away="show = false">
+                    <form class="hover:bg-gray-300" method="post" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="w-full p-2 text-right">Logout</button>
+                    </form>
                 </div>
-            </button>
+            </div>
         @endauth
         @guest
             <a class="text-sm" href="{{ route('login') }}">

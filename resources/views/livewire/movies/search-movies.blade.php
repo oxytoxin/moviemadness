@@ -9,11 +9,11 @@
                 </form>
                 <div class="min-h-[10rem] text-center">
                     @if ($search)
-                        <div wire:loading.delay.remove>
+                        <div wire:loading.delay.remove wire:target="render,search">
                             @if ($movies)
                                 <div class="posters-container">
                                     @foreach ($movies as $movie)
-                                        <x-movies.poster :item="$movie" />
+                                        <x-movies.poster :watchlisted="collect($watchlisted)->contains($movie['id'])" :item="$movie" />
                                     @endforeach
                                 </div>
                                 <div @class([
@@ -32,7 +32,7 @@
                                 <p class="text-center p-16">No results found for '{{ $search }}'.</p>
                             @endif
                         </div>
-                        <div wire:loading.delay>
+                        <div wire:loading.delay wire:target="render,search">
                             <i class="ri-loader-4-line animate-spin inline-flex text-9xl"></i>
                         </div>
                     @endif

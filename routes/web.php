@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Homepage;
@@ -7,6 +8,7 @@ use App\Http\Livewire\Movies\DiscoverMovies;
 use App\Http\Livewire\Movies\MovieDetails;
 use App\Http\Livewire\Movies\MoviesByType;
 use App\Http\Livewire\Movies\SearchMovies;
+use App\Http\Livewire\UserWatchlist;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +30,9 @@ Route::prefix('movies')->name('movies.')->group(function () {
     Route::get('{movie_id}', MovieDetails::class)->name('details')->where('movie_id', '[0-9]+');
 });
 
+Route::middleware('auth')->get('watchlist', UserWatchlist::class)->name('user.watchlist');
+
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)->name('login');

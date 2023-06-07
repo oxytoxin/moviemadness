@@ -24,11 +24,11 @@
             <div class="mt-16">
                 <div>
                     <div class="min-h-[10rem] text-center" wire:init="discover">
-                        <div wire:loading.delay.remove>
+                        <div wire:loading.delay.remove wire:target="discover,toggleGenre,render">
                             @if ($movies)
                                 <div class="posters-container">
                                     @foreach ($movies as $movie)
-                                        <x-movies.poster :item="$movie" />
+                                        <x-movies.poster :watchlisted="collect($watchlisted)->contains($movie['id'])" :item="$movie" />
                                     @endforeach
                                 </div>
                                 <div @class([

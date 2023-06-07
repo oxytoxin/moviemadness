@@ -18,18 +18,16 @@ class Login extends Component
 
     public function login()
     {
-        Notification::make()->title('test')->success()->duration(0)->send();
 
-        // $this->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required'
-        // ]);
+        $this->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-        // if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+            return Notification::make()->title('Invalid Credentials')->body('Please check your email or password.')->danger()->send();
+        }
 
-        // }
-
-
-        // dd($this->email, $this->password);
+        return redirect()->route('home');
     }
 }

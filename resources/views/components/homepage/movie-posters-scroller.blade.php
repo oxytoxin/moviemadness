@@ -3,6 +3,7 @@
     'title' => 'UPCOMING',
     'items' => [],
     'link_for_more' => '#',
+    'watchlisted' => [],
 ])
 
 <div>
@@ -22,7 +23,7 @@
                 },
             }" :id="$id">
             @foreach ($items as $item)
-                <x-movies.poster :item="$item" />
+                <x-movies.poster :watchlisted="collect($watchlisted)->contains($item['id'])" :item="$item" />
             @endforeach
         </x-splide>
     </div>

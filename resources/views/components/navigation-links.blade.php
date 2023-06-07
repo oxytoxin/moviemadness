@@ -1,11 +1,22 @@
 <ul class="flex gap-8 items-center">
-    <a class="border-b border-white px-4" href="{{ route('home') }}">
+    <a href="{{ route('home') }}" @class([
+        'border-b border-white px-4',
+        'border border-amber-600 text-amber-600' =>
+            \Route::currentRouteName() == 'home',
+    ])>
         <li>Home</li>
     </a>
-    <a class="border-b border-white px-4" href="{{ route('movies.discover') }}">
+    <a href="{{ route('movies.discover') }}"@class([
+        'border-b border-white px-4',
+        'border border-amber-600 text-amber-600' =>
+            \Route::currentRouteName() == 'movies.discover',
+    ])>
         <li>Discover</li>
     </a>
-    <a class="border-b border-white px-4" href="{{ route('home') }}#about">
+    <a href="{{ route('home') }}#about"@class([
+        'border-b border-white px-4',
+        'border border-amber-600 text-amber-600' => false,
+    ])>
         <li>About</li>
     </a>
 </ul>

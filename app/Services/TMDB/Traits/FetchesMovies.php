@@ -81,14 +81,14 @@ trait FetchesMovies
             }
 
             $data = $response->json();
-            $data['videos'] = collect($data['videos']['results'])
+            $data['videos'] = collect($data['videos']['results'] ?? [])
                 ->filter(fn ($v) => $v['site'] == 'YouTube' && $v['official'])
                 ->map(function ($v) {
                     $v['thumbnail'] = TMDBClient::getYoutubeVideoThumbnail($v['key']);
                     return $v;
                 })
                 ->toArray();
-            $data['similar'] = $data['similar']['results'];
+            $data['similar'] = $data['similar']['results'] ?? [];
             return Movie::from($data);
         });
     }

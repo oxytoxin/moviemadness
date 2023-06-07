@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Movies;
 
+use App\Models\WatchlistItem;
+use App\Oxytoxin\ManagesMovieWatchlist;
 use App\Services\TMDB\Enums\Images\BackdropSize;
 use App\Services\TMDB\Enums\Images\PosterSize;
 use App\Services\TMDB\Enums\Images\ProfileSize;
@@ -10,7 +12,10 @@ use Livewire\Component;
 
 class MovieDetails extends Component
 {
+    use ManagesMovieWatchlist;
+
     public $movie = [];
+    public $watchlisted = [];
 
     public function mount($movie_id, TMDBClient $client)
     {
@@ -36,6 +41,9 @@ class MovieDetails extends Component
                 return $c;
             });
         $this->movie['similar'] = $client->transformImages($data->similar);
+        if (auth()->id()) {
+            $this->watchlisted = WatchlistItem::whereUserId(auth()->id())->pluck('movie_id')->toArray();
+        }
     }
 
     public function render()

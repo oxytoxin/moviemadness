@@ -52,10 +52,11 @@
                                     <p class="text-xs md:text-sm">View Details</p>
                                     <i class="ri-arrow-right-circle-fill"></i>
                                 </a>
-                                <a class="inline-flex items-center border px-2 py-1 gap-1 hover:bg-white duration-200 hover:text-slate-700 rounded-lg" href="#">
-                                    <i class="ri-bookmark-line"></i>
+                                <button class="inline-flex items-center border px-2 py-1 gap-1 hover:bg-white duration-200 hover:text-slate-700 rounded-lg" wire:click="addToWatchlist({{ $item['id'] }})">
+                                    <i class="ri-loader-4-line animate-spin" wire:loading.delay wire:target="addToWatchlist({{ $item['id'] }})"></i>
+                                    <i class="ri-bookmark-line" wire:loading.delay.remove wire:target="addToWatchlist({{ $item['id'] }})"></i>
                                     <p class="text-xs md:text-sm">Add to Watchlist</p>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

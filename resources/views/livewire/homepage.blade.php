@@ -8,7 +8,7 @@
                 <div wire:ignore>
                     <x-homepage.movie-posters-scroller id="{{ $key }}" :link_for_more="route('movies.by-type', ['type' => $key])" :title="str($key)
                         ->replace('_', ' ')
-                        ->upper()" :items="$movie_collection" />
+                        ->upper()" :items="$movie_collection" :watchlisted="$watchlisted" />
                 </div>
             @endforeach
         </div>

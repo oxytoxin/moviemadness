@@ -11,7 +11,7 @@
     'interval' => 0,
 ])
 
-<div x-cloak x-data x-init="new Splide('#{{ $id }}', {
+<div x-cloak wire:ignore x-data x-init="new Splide('#{{ $id }}', {
     type: '{{ $type }}',
     perPage: {{ $perPage }},
     gap: '{{ $gap }}',

@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Movies;
 
+use App\Models\WatchlistItem;
+use App\Oxytoxin\ManagesMovieWatchlist;
 use App\Services\TMDB\TMDBClient;
 use App\Services\TMDB\Traits\PaginatesMovieResults;
 use Illuminate\Http\Response;
@@ -9,13 +11,14 @@ use Livewire\Component;
 
 class DiscoverMovies extends Component
 {
-    use PaginatesMovieResults;
+    use PaginatesMovieResults, ManagesMovieWatchlist;
 
     public $genres = [];
     public $movies = [];
     public $include_genres = [];
     public $min_rating = 7.11;
     public $loaded = false;
+    public $watchlisted = [];
 
     protected $queryString = [
         "current_page" => ['except' => 1],
@@ -31,6 +34,10 @@ class DiscoverMovies extends Component
 
         if (request('page')) {
             $this->current_page = request('page');
+        }
+
+        if (auth()->id()) {
+            $this->watchlisted = WatchlistItem::whereUserId(auth()->id())->pluck('movie_id')->toArray();
         }
     }
 

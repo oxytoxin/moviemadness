@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\WatchlistItem;
+use App\Oxytoxin\ManagesMovieWatchlist;
 use App\Services\TMDB\Enums\Images\BackdropSize;
 use App\Services\TMDB\Enums\Images\PosterSize;
 use App\Services\TMDB\TMDBClient;
@@ -9,9 +11,12 @@ use Livewire\Component;
 
 class Homepage extends Component
 {
+    use ManagesMovieWatchlist;
+
     public $discover_movies = [];
     public $movies = [];
     public $genres = [];
+    public $watchlisted = [];
     public $home = true;
 
     public function mount(TMDBClient $client)
@@ -22,6 +27,9 @@ class Homepage extends Component
             $this->movies[$key] = $client->transformImages($movie->results);
         }
         $this->genres = $client->getGenres()->toArray();
+        if (auth()->id()) {
+            $this->watchlisted = WatchlistItem::whereUserId(auth()->id())->pluck('movie_id')->toArray();
+        }
     }
 
     public function render()

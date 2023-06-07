@@ -19,7 +19,7 @@
             <p>{{ date_create($movie['release_date'])?->format('F d, Y') }}</p>
         </div>
     </div>
-    <div class="mt-4" x-data="{ player: null }">
+    <div class="mt-4" wire:ignore x-data="{ player: null }">
         @if (count($movie['videos']))
             <div x-init="player = YouTubePlayer('player', {
                 playerVars: {
@@ -67,10 +67,11 @@
                     <h6 class="text-sm">{{ $movie['vote_count'] }}</h6>
                 </div>
             </div>
-            <a class="inline-flex items-center border px-2 py-1 gap-1 hover:bg-white duration-200 hover:text-slate-700 rounded-lg" href="#">
-                <i class="ri-bookmark-line"></i>
+            <button class="inline-flex items-center border px-2 py-1 gap-1 hover:bg-white duration-200 hover:text-slate-700 rounded-lg" wire:click="addToWatchlist({{ $movie['id'] }})">
+                <i class="ri-loader-4-line animate-spin" wire:loading.delay wire:target="addToWatchlist({{ $movie['id'] }})"></i>
+                <i class="ri-bookmark-line" wire:loading.delay.remove wire:target="addToWatchlist({{ $movie['id'] }})"></i>
                 <p class="text-xs md:text-sm">Add to Watchlist</p>
-            </a>
+            </button>
         </div>
         <div class="flex flex-col md:flex-row mt-8 justify-between items-start">
             <div class="md:w-3/4">
