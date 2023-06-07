@@ -11,6 +11,7 @@ class GithubWebhookController extends Controller
 {
     public function pull()
     {
+        info(__DIR__);
         Process::run('php artisan down');
     }
 }
