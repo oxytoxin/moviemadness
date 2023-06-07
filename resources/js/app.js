@@ -7,14 +7,22 @@ import '@splidejs/splide/css';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 import collapse from '@alpinejs/collapse'
+import AlpineFloatingUI from '@awcodes/alpine-floating-ui'
+import NotificationsAlpinePlugin from '../../vendor/filament/notifications/dist/module.esm'
 
-window.Splide = Splide;
-window.YouTubePlayer = YouTubePlayer
+Alpine.plugin(AlpineFloatingUI)
+Alpine.plugin(NotificationsAlpinePlugin)
+
 window.tippy = tippy
 
 Alpine.plugin(collapse)
+
+
 window.Alpine = Alpine
 
+
+window.Splide = Splide;
+window.YouTubePlayer = YouTubePlayer
 window.setProgressValue = function setProgressValue(el, value, maxValue) {
     const radius = parseInt(el.getAttribute('r'));
     const circumference = 2 * Math.PI * radius;
@@ -24,6 +32,5 @@ window.setProgressValue = function setProgressValue(el, value, maxValue) {
     el.style.strokeDashoffset = `${progressOffset}px`;
 }
 
+
 Alpine.start()
-
-

@@ -10,13 +10,23 @@
         <a href="{{ route('movies.search') }}">
             <i class="ri-search-line"></i>
         </a>
-        <button>
-            <i class="ri-notification-2-line"></i>
-        </button>
-        <button>
-            <div class="rounded-full w-8 h-8 border-2 border-white flex items-center justify-center">
-                <i class="ri-user-line"></i>
-            </div>
-        </button>
+        @auth
+            <button>
+                <i class="ri-notification-2-line"></i>
+            </button>
+            <button>
+                <div class="rounded-full w-8 h-8 border-2 border-white flex items-center justify-center">
+                    <i class="ri-user-line"></i>
+                </div>
+            </button>
+        @endauth
+        @guest
+            <a class="text-sm" href="{{ route('login') }}">
+                Login
+            </a>
+            <a class="text-sm" href="{{ route('register') }}">
+                Register
+            </a>
+        @endguest
     </div>
 </nav>

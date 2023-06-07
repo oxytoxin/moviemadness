@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Livewire\Auth\Login;
+use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Homepage;
 use App\Http\Livewire\Movies\DiscoverMovies;
 use App\Http\Livewire\Movies\MovieDetails;
@@ -24,4 +26,10 @@ Route::prefix('movies')->name('movies.')->group(function () {
     Route::get('discover', DiscoverMovies::class)->name('discover');
     Route::get('type/{type}', MoviesByType::class)->name('by-type');
     Route::get('{movie_id}', MovieDetails::class)->name('details')->where('movie_id', '[0-9]+');
+});
+
+
+Route::middleware('guest')->group(function () {
+    Route::get('login', Login::class)->name('login');
+    Route::get('register', Register::class)->name('register');
 });
