@@ -10,9 +10,8 @@ class GithubWebhookController extends Controller
 {
     public function pull()
     {
+        exec('php artisan down');
         try {
-
-            exec('php artisan down');
             exec('git pull');
             exec('pnpm install');
             exec('pnpm build');
@@ -23,5 +22,6 @@ class GithubWebhookController extends Controller
             info('Unable to pull from repository.');
             abort(500);
         }
+        exec('php artisan up');
     }
 }
