@@ -11,7 +11,11 @@ class GithubWebhookController extends Controller
 {
     public function pull()
     {
-        $process = Process::path('/var/www/moviemadness')->run('php artisan down');
-        info($process->output()); //test
+        Process::path(base_path())->run('php artisan down');
+        Process::path(base_path())->run('git pull');
+        Process::path(base_path())->run('pnp install');
+        Process::path(base_path())->run('pnpm run build');
+        Process::path(base_path())->run('composer install --no-dev --no-interaction --optimize-autoloader');
+        Process::path(base_path())->run('php artisan up');
     }
 }
