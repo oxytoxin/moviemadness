@@ -11,7 +11,6 @@ class GithubWebhookController extends Controller
 {
     public function pull()
     {
-        //test
         Process::path(base_path())->run('php artisan down');
         Process::path(base_path())->run('git pull');
         Process::path(base_path())->run('pnp install');
