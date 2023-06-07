@@ -11,6 +11,7 @@ class GithubWebhookController extends Controller
 {
     public function pull()
     {
+        // test
         info('down');
         $p = Process::path(base_path())->run('php artisan down');
         info($p->output());
