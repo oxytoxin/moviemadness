@@ -12,16 +12,21 @@ class GithubWebhookController extends Controller
     public function pull()
     {
         info('down');
-        Process::path(base_path())->run('php artisan down');
+        $p = Process::path(base_path())->run('php artisan down');
+        info($p->output());
         info('pulling');
-        Process::path(base_path())->run('git pull');
+        $p = Process::path(base_path())->run('git pull');
+        info($p->output());
         info('pnpm i');
-        Process::path(base_path())->run('pnp install');
+        $p = Process::path(base_path())->run('pnp install');
+        info($p->output());
         info('build');
-        Process::path(base_path())->run('pnpm run build');
+        $p = Process::path(base_path())->run('pnpm run build');
+        info($p->output());
         info('composer i');
-        Process::path(base_path())->run('composer install --no-dev --no-interaction --optimize-autoloader');
+        $p = Process::path(base_path())->run('composer install --no-dev --no-interaction --optimize-autoloader');
+        info($p->output());
         info('up');
-        Process::path(base_path())->run('php artisan up');
+        $p = Process::path(base_path())->run('php artisan up');
     }
 }
