@@ -19,10 +19,7 @@ window.tippy = tippy;
 
 Alpine.plugin(collapse);
 
-window.Alpine = Alpine;
-
 window.Splide = Splide;
-window.YouTubePlayer = YouTubePlayer;
 window.setProgressValue = function setProgressValue(el, value, maxValue) {
     const radius = parseInt(el.getAttribute("r"));
     const circumference = 2 * Math.PI * radius;
@@ -32,5 +29,8 @@ window.setProgressValue = function setProgressValue(el, value, maxValue) {
     el.style.strokeDasharray = `${circumference}px`;
     el.style.strokeDashoffset = `${progressOffset}px`;
 };
+
+window.YouTubePlayer = YouTubePlayer;
+window.Alpine = Alpine;
 
 Livewire.start();

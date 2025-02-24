@@ -3,7 +3,7 @@
     'absolute' => Route::is('home'),
 ])>
     <div>
-        <p class="text-2xl p-2 border-2 italic">MovieMadness</p>
+        <a href="/" class="text-2xl p-2 border-2 italic">MovieMadness</a>
     </div>
     <x-navigation-links />
     <div class="text-xl flex gap-4 items-center">
