@@ -26,9 +26,7 @@ trait ManagesMovieWatchlist
                 'movie_overview' => $movie->overview,
             ]
         ]);
-        $this->dispatchBrowserEvent('watchlisted', [
-            'movie_id' => $movie_id
-        ]);
+        $this->dispatch('watchlisted', movie_id: $movie_id);
         Notification::make()->title('Movie added to watchlist!')->success()->send();
         $this->skipRender();
     }

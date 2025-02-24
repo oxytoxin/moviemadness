@@ -7,9 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>{{ config('app.name') }}</title>
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
     @livewireStyles
-    @livewireScripts
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 
 <body class="bg-black font-rubik flex flex-col text-white w-full antialiased">
@@ -23,6 +22,8 @@
         <x-footer />
     </div>
     @livewire('notifications')
+    @filamentScripts
+    @livewireScriptConfig
 </body>
 
 </html>
